@@ -1,0 +1,162 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+
+<style type="text/css">
+		body{
+	font:15px/1.5 Arial, Helvetica,sans-serif;
+}
+		.spinner-1:before{
+			content: "";
+			box-sizing: border-box;
+			position: absolute;
+			top:50%;
+			left: 50%;
+			height: 60px;
+			width: 60px;
+			margin-top: -30px;
+			margin-left: -30px;
+			border-radius: 50%;
+			border:6px solid transparent;
+			border-top-color: #0091EA;
+			animation: spinner 0.7s linear infinite;
+		}
+		@keyframes spinner {
+			to {
+				transform: rotate(360deg);
+			}
+		}
+		li { background-color:#BDBDBD; }
+		li:nth-child(odd) { background-color:#0091EA; }
+		</style>
+
+
+<div class="container">
+	<div class="jumbotron text-center">
+		<h1>Financial Article Categorizer</h1>
+		<p class="lead"><font size='6'>By Suraj Satheesan</font></p>
+    	<hr class="m4-4">
+    	<p></p>
+	</div>
+</div>
+
+<div class="container">
+	<form method="POST" action="{{ url_for('analyse')}}" id="myForm">
+		
+
+		<label >Enter Your url Below</label>
+    <textarea class="form-control" rows="3" cols="2" name="rawtext"></textarea>
+
+    <input type="submit" onclick="myAnalyser()" value="Submit" class="btn btn-primary ">
+    <input type="button" onclick="myFunction()" value="Clear" class="btn btn-outline-dark">
+
+    <a href="{{ url_for('index')}}" type="button" class="btn btn-danger" > Reset</a>
+    
+	</form>
+	
+</div>
+<br/>
+<hr/>
+<div class="container">
+<hr/>
+<br/>
+<p>Time Elapsed: <span style="color:#0091EA;">{{ final_time }} </span> seconds to analyse</p>
+</div>
+<br/>
+	<div class="container">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-8">
+					<h2>Article</h2>
+						<div style="height:250px;width:700px;border:0px solid #ccc;font:16px/26px Georgia, Garamond,Serif;overflow:auto;">
+							{{ received_text }}
+						</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<h5 class="card-header">
+							Main Category
+						</h5>
+						<div class="card-body">
+							<p class="card-text">
+								<div class="alert alert-danger" role="alert">
+								{{blob_sentiment}}
+								</div>
+							</p>
+						</div>
+					</div>
+					<div class="card">
+						<h5 class="card-header">
+							Sub Category
+						</h5>
+						<div class="card-body">
+							<p class="card-text">
+								<div class="alert alert-success" role="alert">
+								{{second_cat}}
+								</div>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	   
+
+  </div>
+
+</div>
+<br/>
+	<footer class="footer">
+      <div class="card-body">
+			<p class="card-text">
+				<div class="alert alert-info" role="alert">
+				Contact info: surajsatheesan@gmail.com
+				</div>
+			</p>
+		</div>
+    </footer>
+	
+</div>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+<!-- Scripts starts here -->
+{% block scripts %}
+
+{{ super() }}
+
+<script>
+function myFunction() {
+    document.getElementById("myForm").reset();
+}
+</script>
+<script>
+function myAnalyser() {
+    document.querySelector('.main div').style.display = 'none';
+	//Hide the main division
+	document.querySelector('.main').classList.add('spinner-1');
+	// Server request
+	setTimeout(() => {
+	document.querySelector('.main').classList.remove('spinner-1');
+	//Remove the animation
+	document.querySelector('.main div').style.display = 'block';
+	//Show the main division
+	},5000);//Number of seconds to last
+}
+</script>
+
+<!-- Prevent it from being overwritten -->
+
+{% endblock %}

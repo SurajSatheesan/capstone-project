@@ -1,0 +1,37 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8">
+			<h2>
+				Article
+			</h2>
+			<p style="color:#0091EA;font-family:sans-serif;">{{ received_text }}</p>
+				<div style="height:120px;width:500px;border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+				{{ received_text }}
+				</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<h5 class="card-header">
+					Main Category
+				</h5>
+				<div class="card-body">
+					<p class="card-text" class="alert alert-danger" role="alert">
+						{{blob_sentiment}}
+					</p>
+				</div>
+			</div>
+			<div class="card">
+				<h5 class="card-header">
+					Sub Category
+				</h5>
+				<div class="card-body">
+					<p class="card-text">
+						<div class="alert alert-success" role="alert">
+						{{second_cat}}
+						</div>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
